@@ -210,6 +210,58 @@ print(isinstance([1, 2, 3], (list, tuple)))
 
 
 # 使用dir
-print(dir("123"))  # 获取一个对象的所有属性与方法
+print(dir("abc"))  # 获取一个对象的所有属性与方法
 
 print(len("123"))
+print("123".__len__())
+
+print("-----------------")
+# 使用getattr(),setattr(),hasattr()
+
+
+class MyObject(object):
+    def __init__(self):
+        self.x = 9
+
+    def power(self):
+        return self.x*self.x
+
+
+obj = MyObject()
+print(hasattr(obj, "x"))
+print(hasattr(obj, "t"))
+print(getattr(obj, "x"))
+print(obj.power())
+setattr(obj, "x", 10)
+print(getattr(obj, "x"))
+print(obj.power())
+print(getattr(obj, "z", "错误"))
+print(hasattr(obj, "power"))
+
+# 实例属性和类属性
+
+# 练习，为了统计学生人数，可以给Student类增加一个类属性，每创建一个实例，该属性自动增加：
+
+
+class Student(object):
+    count = 0
+
+    def __init__(self, name):
+        self.name = name
+        Student.count += 1
+
+
+# 测试:
+if Student.count != 0:
+    print('测试失败!')
+else:
+    bart = Student('Bart')
+    if Student.count != 1:
+        print('测试失败!')
+    else:
+        lisa = Student('Bart')
+        if Student.count != 2:
+            print('测试失败!')
+        else:
+            print('Students:', Student.count)
+            print('测试通过!')
