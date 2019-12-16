@@ -1,3 +1,6 @@
+import types
+
+
 class Student(object):
     def __init__(self, name, score):  # self是默认方法__init__的第一个参数
         self.name = name
@@ -27,6 +30,9 @@ haha.print_score()
 keke.get_grade()
 lisa.get_grade()
 haha.get_grade()
+
+print("-----------------")
+# 访问控制，私有方法
 
 
 class Stu(object):
@@ -71,3 +77,139 @@ kk.get_grade()
 kk.get_name()
 kk.set_name("44")
 kk.get_name()
+
+
+# 练习
+# 请把下面的Student对象的gender字段对外隐藏起来，用get_gender()和set_gender()代替，并检查参数有效性：
+
+
+class Student(object):
+    def __init__(self, name, gender):
+        self.name = name
+        self.__gender = gender
+
+    def get_gender(self):
+        print(self.__gender)
+        return self.__gender
+
+    def set_gender(self, gender):
+        if gender == 'male' or gender == 'female':
+            self.__gender = gender
+        else:
+            raise ValueError('error gender')
+
+
+bart = Student('Bart', 'male')
+if bart.get_gender() != 'male':
+    print('测试失败!')
+else:
+    bart.set_gender('female')
+    if bart.get_gender() != 'female':
+        print('测试失败!')
+    else:
+        print('测试成功!')
+
+print("-----------------")
+# 继承和多态
+
+
+class Animal(object):
+    def run(self):
+        print("Animal is running")
+
+
+class Pig(Animal):
+    pass  # 继承父类的子类，直接可以使用父类的方法
+
+
+class Dog(Animal):
+    def run(self):  # 虽然继承父类方法，但是子类可以改写父类方法
+        print("Dog is running")
+
+    def eat(self):  # 子类可以增加方法，父类无法调用子类新增的方法
+        print("Dog is eatting")
+
+
+class Cat(Animal):
+    def run(self):
+        print("Cat is running")
+
+    def eat(self):
+        print("Cat is eatting")
+
+
+dd = Dog()  # dd是Dog类型，也是Animal类型，这叫多态
+cc = Cat()
+pp = Pig()
+pp.run()
+dd.run()
+cc.run()
+dd.eat()
+cc.eat()
+# pp.eat()  pp没有eat这种方法
+
+
+def run_tw(aa):
+    aa.run()
+    aa.run()
+
+
+run_tw(Animal())
+# Animal is running
+# Animal is running
+
+run_tw(Dog())
+# Dog is running
+# Dog is running
+
+run_tw(Cat())
+# Cat is running
+# Cat is running
+
+
+class Tort(Animal):
+    def run(self):
+        print("Tort is running slowly")
+
+
+run_tw(Tort())
+# Tort is running slowly
+# Tort is running slowly
+
+
+# 判断类型
+# 使用type
+print(type(123) == type(456))
+print(type('1234sd') == type("蒋定价格"))
+print(type('1234sd') == str)
+print(type(abs) == type(max))
+print("-----------------")
+
+
+def fn():
+    pass
+
+
+# 需要improt types
+print(type(fn) == types.FunctionType)
+print(type(abs) == types.BuiltinFunctionType)
+print(type(lambda x: x) == types.LambdaType)
+print(type((x for x in range(10))) == types.GeneratorType)
+print("-----------------")
+
+# 使用isinstance
+print(isinstance(pp, Animal))
+print(isinstance(kk, Animal))
+print(isinstance(dd, Animal))
+print(isinstance(dd, Dog))
+print("-----------------")
+print(isinstance("123", str))
+print(isinstance(123, int))
+# isinstance的第二个参数可以是一个tuple，相当于or
+print(isinstance([1, 2, 3], (list, tuple)))
+
+
+# 使用dir
+print(dir("123"))  # 获取一个对象的所有属性与方法
+
+print(len("123"))
