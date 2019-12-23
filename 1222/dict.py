@@ -14,3 +14,18 @@ for it in inn.items():
 print("-"*10)
 for kk, vv in inn.items():
     print("%s = %d" % (kk, vv))
+
+print("-" * 10)
+
+confusion = {}
+confusion[1] = 1
+confusion['1'] = 2
+confusion[1] += 1
+
+print(confusion)
+sum = 0
+for k in confusion:
+    print(k)
+    sum += confusion[k]
+
+print(sum)
