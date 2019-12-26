@@ -6,7 +6,7 @@ from pathlib import Path  # 解决Mac与Windows系统文件路径分隔符不一
 
 # 复习文件打开
 print(os.getcwd())  # 当前目录是文件所在的上一级目录？
-folder = Path("1217/") / "tt.txt"  # 解决Mac与Windows系统文件路径分隔符不一致的问题
+folder = Path(os.getcwd()) / "tt.txt"  # 解决Mac与Windows系统文件路径分隔符不一致的问题
 print(folder)
 tt = open(folder, mode="r", encoding="utf-8")
 print(tt.read())
